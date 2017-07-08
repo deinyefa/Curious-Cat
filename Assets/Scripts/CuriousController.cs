@@ -20,7 +20,7 @@ public class CuriousController : MonoBehaviour {
 
 	void MoveCurious () {
 		//- Move left and right
-		if (Input.GetKeyDown (KeyCode.LeftArrow) || Input.GetKeyDown (KeyCode.A))
+		if (Input.GetKey (KeyCode.LeftArrow) || Input.GetKey (KeyCode.A))
 		{
 			characterAnimController.SetBool ("isWalking", true);
 			transform.Translate (Vector3.left * Time.deltaTime);
