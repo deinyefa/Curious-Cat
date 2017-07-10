@@ -12,9 +12,15 @@ using UnityEngine;
 
 public class Reset : MonoBehaviour {
 
+	private Rigidbody2D rb2d;
+
 	private GameObject obstacle;
 	private Vector3 initialPosition;
 	private int count = 0;
+
+	void Awake () {
+		rb2d = GetComponent<Rigidbody2D> ();
+	}
 
 	void Start () {
 		initialPosition = transform.position;
@@ -25,6 +31,8 @@ public class Reset : MonoBehaviour {
 		if (other.gameObject.tag == "Obstacle") 
 		{
 			transform.position = initialPosition;
+			rb2d.velocity = Vector2.zero;
+			rb2d.AddForce (Vector2.zero);
 			count++;
 
 			if (count >= 3)

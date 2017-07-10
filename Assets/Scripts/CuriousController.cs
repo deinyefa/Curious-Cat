@@ -10,6 +10,7 @@ public class CuriousController : MonoBehaviour {
 	private Animator characterAnimController;
 	private Rigidbody2D rb2d;
 	private bool grounded = false;
+	private bool doubleJump = false;
 
 
 	public float moveForce = 365f;
@@ -26,9 +27,12 @@ public class CuriousController : MonoBehaviour {
 	{
 		grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
 
-		if (Input.GetButtonDown ("Jump") && grounded)
+		if (Input.GetButtonDown("Jump") && (grounded || !doubleJump))
 		{
 			jump = true;
+
+			if (!doubleJump && !grounded)
+				doubleJump = true;
 		}
 	}
 
@@ -52,6 +56,9 @@ public class CuriousController : MonoBehaviour {
 			rb2d.AddForce (new Vector2(0f, jumpForce));
 			jump = false;
 		}
+
+		if (grounded)
+			doubleJump = false;
 	}
 
 	void Flip () 
