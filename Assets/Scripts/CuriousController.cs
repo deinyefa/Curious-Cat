@@ -50,7 +50,6 @@ public class CuriousController : MonoBehaviour {
 		if (jump) {
 			characterAnimController.SetTrigger ("isJumping");
 			rb2d.AddForce (new Vector2(0f, jumpForce));
-			print (jumpForce);
 			jump = false;
 		}
 	}
