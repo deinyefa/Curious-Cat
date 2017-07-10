@@ -4,45 +4,62 @@ using UnityEngine;
 
 public class CuriousController : MonoBehaviour {
 
-	private Animator characterAnimController;
-	private bool isJumping;
+	[HideInInspector] public bool jump = true;
+	[HideInInspector] public bool isFacingRight = true;
 
-//	public float moveSpeed;
-	public float jumpForce;
+	private Animator characterAnimController;
+	private Rigidbody2D rb2d;
+	private bool grounded = false;
+
+
+	public float moveForce = 365f;
+	public float maxSpeed = 5f;
+	public float jumpForce = 1000f;
+	public Transform groundCheck;
 
 	void Awake () {
 		characterAnimController = GetComponent<Animator> ();
+		rb2d = GetComponent<Rigidbody2D> ();
 	}
-	
+
+	void Update () 
+	{
+		grounded = Physics2D.Linecast (transform.position, groundCheck.position, 1 << LayerMask.NameToLayer ("Ground"));
+
+		if (Input.GetButtonDown ("Jump") && grounded)
+		{
+			jump = true;
+		}
+	}
+
 	void FixedUpdate () {
-		MoveCurious ();
+		float h = Input.GetAxis ("Horizontal");
+		characterAnimController.SetFloat ("Speed", Mathf.Abs (h));
+
+		if (h * rb2d.velocity.x < maxSpeed)
+			rb2d.AddForce (Vector2.right * h * moveForce);
+		
+		if (Mathf.Abs (rb2d.velocity.x) > maxSpeed)
+			rb2d.velocity = new Vector2 (Mathf.Sign (rb2d.velocity.x) * maxSpeed, rb2d.velocity.y);	
+
+		if (h > 0 && !isFacingRight)
+			Flip ();
+		else if (h < 0 && isFacingRight)
+			Flip ();
+
+		if (jump) {
+			characterAnimController.SetTrigger ("isJumping");
+			rb2d.AddForce (new Vector2(0f, jumpForce));
+			print (jumpForce);
+			jump = false;
+		}
 	}
 
-	void MoveCurious () {
-		//- Move left and right
-		if (Input.GetKey (KeyCode.LeftArrow) || Input.GetKey (KeyCode.A))
-		{
-			characterAnimController.SetBool ("isWalking", true);
-			transform.Translate (Vector3.left * Time.deltaTime);
-		} 
-		else if (Input.GetKey (KeyCode.RightArrow) || Input.GetKey (KeyCode.D))
-		{
-			characterAnimController.SetBool ("isWalking", true);
-			transform.Translate (Vector3.right * Time.deltaTime);
-		}
-
-
-		//- Jump
-		if (Input.GetKey (KeyCode.UpArrow) || Input.GetKey (KeyCode.W)) 
-		{
-
-			isJumping = true;
-			characterAnimController.SetTrigger ("isJumping");
-
-			transform.Translate (Vector3.up * Time.deltaTime * jumpForce);
-		}
-		else {
-			isJumping = false;
-		}
+	void Flip () 
+	{
+		isFacingRight = !isFacingRight;
+		Vector3 theScale = transform.localScale;
+		theScale.x *= -1;
+		transform.localScale = theScale;
 	}
 }
