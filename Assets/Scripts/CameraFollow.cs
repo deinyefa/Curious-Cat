@@ -25,6 +25,7 @@ public class CameraFollow : MonoBehaviour {
 
 	void Start () {
 		initialPos = new Vector3 (start.position.x + 8, transform.position.y, transform.position.z);
+		transform.position = initialPos;
 
 		offset = transform.position.x - player.position.x;
 
