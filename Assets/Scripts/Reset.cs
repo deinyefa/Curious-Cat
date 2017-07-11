@@ -19,6 +19,7 @@ public class Reset : MonoBehaviour {
 	private int count = 0;
 
 	public GameObject chest;
+	public List<GameObject> lives;
 
 	void Awake () {
 		rb2d = GetComponent<Rigidbody2D> ();
@@ -34,11 +35,17 @@ public class Reset : MonoBehaviour {
 		if (other.gameObject.tag == "Obstacle") 
 		{
 			chest.SetActive (true);
+
 			if (coinCollector.score > 5)
 				coinCollector.score -= 5;
+
 			transform.position = initialPosition;
 			rb2d.velocity = Vector2.zero;
 			rb2d.AddForce (Vector2.zero);
+
+			Destroy (lives[lives.Count - 1]);
+			lives.RemoveAt (lives.Count - 1);
+
 			count++;
 
 			if (count >= 3)		//- score = 0, reset scene
