@@ -12,6 +12,11 @@ public class CoinCollector : MonoBehaviour {
 	[HideInInspector] public int score;
 
 	public Text scoreText;
+	public Image chestimage;
+
+	void Start () {
+		chestimage.gameObject.SetActive (false);
+	}
 
 	void Update () {
 		scoreText.text = score.ToString ();
@@ -28,7 +33,7 @@ public class CoinCollector : MonoBehaviour {
 		{
 			score += 25;
 			other.gameObject.SetActive (false);
-			Debug.Log ("Level 2 unlocked!");
+			chestimage.gameObject.SetActive (true);
 		}
 	}
 }

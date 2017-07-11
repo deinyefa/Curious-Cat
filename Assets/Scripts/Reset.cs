@@ -35,6 +35,7 @@ public class Reset : MonoBehaviour {
 		if (other.gameObject.tag == "Obstacle") 
 		{
 			chest.SetActive (true);
+			coinCollector.chestimage.gameObject.SetActive (false);
 
 			if (coinCollector.score > 5)
 				coinCollector.score -= 5;
