@@ -1,7 +1,8 @@
 ﻿/*
- * Start Screen w How to play & levels - 0
+ * Start Screen w How to play & levels  - 0
  * How to play 							- 1
- * Levels 1-10 (1 - 2 for now)			- 2-3
+ * Choose Levels						- 2
+ * Levels 1-10 (1 - 2 for now)			- 3-4
 */
 
 using System.Collections;
@@ -23,12 +24,16 @@ public class SceneManagement : MonoBehaviour {
 	
 	public void LoadNextScene () {
 		//- From start scenes to level 2
-		if (SceneManager.GetActiveScene ().buildIndex <= 2) {
+		if (SceneManager.GetActiveScene ().buildIndex <= 3) {
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
 		}
 
 		//- when player reaches last level, go back to start screen 
-		if (SceneManager.GetActiveScene ().buildIndex >= 3)
+		if (SceneManager.GetActiveScene ().buildIndex >= 4)
 			SceneManager.LoadScene ("Start");
+	}
+
+	public void Play () {
+		SceneManager.LoadScene ("Select Level");
 	}
 }
