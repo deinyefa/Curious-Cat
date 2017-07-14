@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class CoinCollector : MonoBehaviour {
 
 	[HideInInspector] public int score;
+	[HideInInspector] public bool hasTakenChest = false;
 
 	public Text scoreText;
 	public Image chestimage;
@@ -31,9 +32,14 @@ public class CoinCollector : MonoBehaviour {
 		} 
 		else if (other.CompareTag ("Chest")) 
 		{
+			hasTakenChest = true;
 			score += 25;
 			other.gameObject.SetActive (false);
 			chestimage.gameObject.SetActive (true);
+		}
+
+		if (other.CompareTag ("Door") && hasTakenChest) {
+			SceneManagement.instance.LoadNextScene ();
 		}
 	}
 }

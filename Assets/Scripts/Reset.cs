@@ -36,6 +36,7 @@ public class Reset : MonoBehaviour {
 		{
 			chest.SetActive (true);
 			coinCollector.chestimage.gameObject.SetActive (false);
+			coinCollector.hasTakenChest = false;
 
 			if (coinCollector.score > 5)
 				coinCollector.score -= 5;
