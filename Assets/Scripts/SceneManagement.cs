@@ -36,4 +36,8 @@ public class SceneManagement : MonoBehaviour {
 	public void Play () {
 		SceneManager.LoadScene ("Select Level");
 	}
+
+	public void Back () {
+		SceneManager.LoadScene ("Start");
+	}
 }
