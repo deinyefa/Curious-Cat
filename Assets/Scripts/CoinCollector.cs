@@ -39,7 +39,8 @@ public class CoinCollector : MonoBehaviour {
 		}
 
 		if (other.CompareTag ("Door") && hasTakenChest) {
-			SceneManagement.instance.LoadNextScene ();
+			LoadOnClick loadOnClick = GameObject.FindObjectOfType<LoadOnClick> ();
+			loadOnClick.SelectLevelScene ();
 		}
 	}
 }
