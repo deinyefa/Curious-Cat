@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public class CoinCollector : MonoBehaviour {
 
+
 	[HideInInspector] public int score;
 	[HideInInspector] public bool hasTakenChest = false;
 
@@ -40,7 +41,7 @@ public class CoinCollector : MonoBehaviour {
 
 		if (other.CompareTag ("Door") && hasTakenChest) {
 			LoadOnClick loadOnClick = GameObject.FindObjectOfType<LoadOnClick> ();
-			loadOnClick.SelectLevelScene ();
+			loadOnClick.ButtonNextLevel ();
 		}
 	}
 }

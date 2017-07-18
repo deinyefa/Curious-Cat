@@ -26,9 +26,4 @@ public class LoadOnClick : MonoBehaviour {
 	public void LoadSelectedLevel (int level) {
 		SceneManager.LoadScene (level);
 	}
-
-	public void SelectLevelScene () {
-		SceneManager.LoadScene ("Select Level");
-	}
-
 }
