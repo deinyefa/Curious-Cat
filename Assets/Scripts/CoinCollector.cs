@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CoinCollector : MonoBehaviour {
 
@@ -15,6 +16,7 @@ public class CoinCollector : MonoBehaviour {
 
 	public Text scoreText;
 	public Image chestimage;
+	public GameObject panel;
 
 	void Start () {
 		chestimage.gameObject.SetActive (false);
@@ -40,8 +42,14 @@ public class CoinCollector : MonoBehaviour {
 		}
 
 		if (other.CompareTag ("Door") && hasTakenChest) {
-			LoadOnClick loadOnClick = GameObject.FindObjectOfType<LoadOnClick> ();
-			loadOnClick.ButtonNextLevel ();
+			if (SceneManager.GetActiveScene ().name == "Level3") {
+				Time.timeScale = 0;
+				panel.SetActive (true);
+			}
+			else {
+				LoadOnClick loadOnClick = GameObject.FindObjectOfType<LoadOnClick> ();
+				loadOnClick.ButtonNextLevel ();
+			}
 		}
 	}
 }
