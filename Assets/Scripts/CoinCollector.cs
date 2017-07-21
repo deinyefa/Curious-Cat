@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 public class CoinCollector : MonoBehaviour {
 
 
-	[HideInInspector] public int score;
+	[HideInInspector] public static int score;
 	[HideInInspector] public bool hasTakenChest = false;
 
 	public Text scoreText;
