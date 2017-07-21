@@ -38,8 +38,8 @@ public class Reset : MonoBehaviour {
 			coinCollector.chestimage.gameObject.SetActive (false);
 			coinCollector.hasTakenChest = false;
 
-			if (coinCollector.score > 5)
-				coinCollector.score -= 5;
+			if (CoinCollector.score > 5)
+				CoinCollector.score -= 5;
 
 			transform.position = initialPosition;
 			rb2d.velocity = Vector2.zero;

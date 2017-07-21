@@ -9,7 +9,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class CoinCollector : MonoBehaviour {
-
+	
 
 	[HideInInspector] public static int score;
 	[HideInInspector] public bool hasTakenChest = false;
@@ -17,8 +17,18 @@ public class CoinCollector : MonoBehaviour {
 	public Text scoreText;
 	public Image chestimage;
 	public GameObject panel;
+	public GameObject coinsParent;
+	public List<GameObject> coinsList;
+
+	private int initialCoinCount;
+	private int finalCoinCount;
 
 	void Start () {
+		foreach (Transform coin in coinsParent.transform) {
+			coinsList.Add (coin.gameObject);
+		}
+		initialCoinCount = coinsList.Count;
+
 		chestimage.gameObject.SetActive (false);
 	}
 
@@ -41,7 +51,14 @@ public class CoinCollector : MonoBehaviour {
 			chestimage.gameObject.SetActive (true);
 		}
 
-		if (other.CompareTag ("Door") && hasTakenChest) {
+		if (other.CompareTag ("Door") && hasTakenChest) 
+		{
+			coinsList.Clear ();
+			foreach(Transform coin in coinsParent.transform){
+				coinsList.Add (coin.gameObject);
+			}
+			finalCoinCount = coinsList.Count;
+
 			if (SceneManager.GetActiveScene ().name == "Level3") {
 				Time.timeScale = 0;
 				panel.SetActive (true);
